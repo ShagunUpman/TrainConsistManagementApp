@@ -1,0 +1,49 @@
+import java.util.*;
+
+// Bogie Class
+class GoodsBogie {
+    int bogieId;
+    String type;   // Cylindrical / Box / Flat
+    String cargo;  // Petroleum / Coal / Goods
+
+    // Constructor
+    GoodsBogie(int bogieId, String type, String cargo) {
+        this.bogieId = bogieId;
+        this.type = type;
+        this.cargo = cargo;
+    }
+
+    void display() {
+        System.out.println("Bogie ID: " + bogieId +
+                ", Type: " + type +
+                ", Cargo: " + cargo);
+    }
+}
+
+// Main Class
+public class UC12_SafetyCheck {
+    public static void main(String[] args) {
+
+        // List of Goods Bogies
+        List<GoodsBogie> bogies = new ArrayList<>();
+
+        bogies.add(new GoodsBogie(201, "Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie(202, "Box", "Coal"));
+        bogies.add(new GoodsBogie(203, "Flat", "Goods"));
+        bogies.add(new GoodsBogie(204, "Cylindrical", "Petroleum"));
+
+        // Stream + allMatch + Lambda rule
+        boolean isSafe = bogies.stream()
+                .allMatch(b ->
+                        !(b.type.equals("Cylindrical")) ||
+                        b.cargo.equals("Petroleum")
+                );
+
+        // Output
+        if (isSafe) {
+            System.out.println("Train is SAFETY COMPLIANT ✅");
+        } else {
+            System.out.println("Train is NOT SAFE ❌");
+        }
+    }
+}
